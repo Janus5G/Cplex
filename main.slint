@@ -1,0 +1,74 @@
+import { Button, TextEdit, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component MainWindow inherits Window {
+    title: "ChromaPlex Editor";
+    width: 1180px;
+    height: 760px;
+
+    in-out property <string> file_path: "";
+    in-out property <string> status_text: "Klar";
+    in-out property <string> source_text: "// ChromaPlex CPL\nvar x = 40;\nvar y = x + 2;\nprint y;\n";
+    in-out property <string> assembly_text: "";
+    in-out property <string> output_text: "";
+
+    callback new_file();
+    callback open_file();
+    callback save_file();
+    callback save_file_as();
+    callback compile_source();
+    callback run_source();
+    callback build_binary();
+
+    VerticalBox {
+        padding: 8px;
+        spacing: 8px;
+
+        HorizontalBox {
+            spacing: 8px;
+            Button { text: "Ny"; clicked => { root.new_file(); } }
+            Button { text: "Åbn"; clicked => { root.open_file(); } }
+            Button { text: "Gem"; clicked => { root.save_file(); } }
+            Button { text: "Gem som"; clicked => { root.save_file_as(); } }
+            Button { text: "Kompilér"; clicked => { root.compile_source(); } }
+            Button { text: "Kør"; clicked => { root.run_source(); } }
+            Button { text: "Byg .bin"; clicked => { root.build_binary(); } }
+            Text { text: root.status_text; vertical-alignment: center; }
+        }
+
+        Text { text: root.file_path; color: #666; }
+
+        HorizontalBox {
+            spacing: 8px;
+
+            VerticalBox {
+                spacing: 4px;
+                Text { text: "CPL kildekode"; font-weight: 700; }
+                TextEdit {
+                    text <=> root.source_text;
+                    font-family: "monospace";
+                    font-size: 14px;
+                }
+            }
+
+            VerticalBox {
+                spacing: 4px;
+                Text { text: "CPA assembly"; font-weight: 700; }
+                TextEdit {
+                    text <=> root.assembly_text;
+                    font-family: "monospace";
+                    font-size: 14px;
+                    read-only: true;
+                }
+            }
+        }
+
+        Text { text: "Output"; font-weight: 700; }
+        TextEdit {
+            text <=> root.output_text;
+            font-family: "monospace";
+            font-size: 14px;
+            read-only: true;
+            height: 170px;
+        }
+    }
+}

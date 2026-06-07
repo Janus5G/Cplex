@@ -1,0 +1,13 @@
+target/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+
+# Lokale build outputs
+*.log
+
+# Behold evt. ikke genererede demo-bundles i repo senere efter valg
+# vendor/full_potential_demo.bin

@@ -1,0 +1,39 @@
+// ChromaPlex Fuld Potential-demo: Holografisk billede
+// Viser farvekodning, potenser, multipleksing og hologram-visning
+
+konstant BREDDE = 10
+konstant HOEJDE = 10
+
+// Skriv et farvebillede til krystallen
+for y = 0 to HOEJDE-1 {
+    for x = 0 to BREDDE-1 {
+        pixel pixeldata = hent_pixel(x, y)
+
+        potens r_e, rest r_rest = komponent_til_potens(pixeldata.rød)
+        potens g_e, rest g_rest = komponent_til_potens(pixeldata.grøn)
+        potens b_e, rest b_rest = komponent_til_potens(pixeldata.blå)
+
+        skriv_voxel(x, y, 0) {
+            kanal rød = r_e, rest = r_rest;
+            kanal grøn = g_e, rest = g_rest;
+            kanal blå = b_e, rest = b_rest;
+        }
+    }
+}
+
+// Læs tilbage og rekonstruer hologram
+hologram = opret_hologram(BREDDE, HOEJDE)
+
+for y = 0 to HOEJDE-1 {
+    for x = 0 to BREDDE-1 {
+        læs_voxel(x, y, 0) -> kanal rød: r_e, r_rest; kanal grøn: g_e, g_rest; kanal blå: b_e, b_rest
+
+        r = potens_til_tal(r_e, r_rest)
+        g = potens_til_tal(g_e, g_rest)
+        b = potens_til_tal(b_e, b_rest)
+
+        hologram.sæt_pixel(x, y, r, g, b)
+    }
+}
+
+vis_hologram(hologram)

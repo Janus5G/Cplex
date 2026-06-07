@@ -1,0 +1,12 @@
+// Hello World i ChromaPlex Language
+// Gemmer "Hello World" i en krystal med potens-repræsentation
+
+streng data = "Hello World";
+tal T = strengTilTal(data);
+potens e = findEksponent(T);
+tal rest = T - (2^e);
+
+// Skriv til voxel (0,0,0) i grøn kanal
+skriv_voxel(0, 0, 0) {
+    kanal grøn = e, rest = rest;
+}

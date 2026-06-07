@@ -433,24 +433,23 @@ CHROMAPLEX_CPA_BUNDLE_V1
 
 ---
 
-## Filer der ikke bør uploades til GitHub
+## Hent projektet
 
-Undlad at committe:
+Du kan hente Cplex direkte fra GitHub:
 
-```text
-target/
-.venv/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.DS_Store
-vendor/full_potential_demo.bin
-```
+```bash
+git clone https://github.com/Janus5G/Cplex.git
+cd Cplex
 
-`vendor/full_potential_demo.bin` er genereret build-output. Kildeprojektet bør normalt kun indeholde `.cpl`-filen.
+chmod +x run_linux.sh test_bridge.sh
+./test_bridge.sh
+./run_linux.sh
 
----
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements.txt
+export CHROMAPLEX_PYTHON="$PWD/.venv/bin/python"
+cargo run
 
 ## Kendte begrænsninger
 
